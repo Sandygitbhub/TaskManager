@@ -1,0 +1,11 @@
+<div class="toast-container">
+  <div *ngFor="let toast of toasts" class="toast toast-{{toast.type}}" [ngClass]="{'fade-in': true}">
+    <div class="toast-content">
+      <i class="toast-icon" [ngClass]="toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'"></i>
+      <span class="toast-message">{{ toast.message }}</span>
+      <button class="toast-close" (click)="removeToast(toast.id)">
+        <i class="bi-x"></i>
+      </button>
+    </div>
+  </div>
+</div>

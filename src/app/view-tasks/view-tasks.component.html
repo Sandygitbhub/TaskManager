@@ -1,0 +1,52 @@
+<div class="container-fluid py-5">
+  <!-- Search and Filter -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8">
+      <div class="card bg-white p-3">
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-light">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input type="text" class="form-control border-start-0" placeholder="Search tasks by title or description..." [(ngModel)]="searchTerm" (input)="onSearch()">
+        </div>
+        <div class="btn-group w-100" role="group">
+          <input type="radio" class="btn-check" name="filter" id="all" autocomplete="off" [checked]="filter === 'all'" (change)="setFilter('all')">
+          <label class="btn btn-outline-primary" for="all">
+            <i class="bi bi-grid me-1"></i>All
+          </label>
+
+          <input type="radio" class="btn-check" name="filter" id="completed" autocomplete="off" [checked]="filter === 'completed'" (change)="setFilter('completed')">
+          <label class="btn btn-outline-success" for="completed">
+            <i class="bi bi-check-circle me-1"></i>Completed
+          </label>
+
+          <input type="radio" class="btn-check" name="filter" id="pending" autocomplete="off" [checked]="filter === 'pending'" (change)="setFilter('pending')">
+          <label class="btn btn-outline-warning" for="pending">
+            <i class="bi bi-clock me-1"></i>Pending
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task List -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="list-group">
+        <app-task-item
+          *ngFor="let task of filteredTasks; trackBy: trackByFn"
+          [task]="task"
+          (toggleComplete)="toggleComplete($event)"
+          (deleteTask)="deleteTask($event)">
+        </app-task-item>
+      </div>
+      <div *ngIf="filteredTasks.length === 0" class="text-center mt-5">
+        <div class="card bg-white p-5">
+          <i class="bi bi-inbox display-1 text-muted mb-3"></i>
+          <h5 class="text-muted">No tasks found</h5>
+          <p class="text-muted">Try adjusting your search or filter criteria</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
